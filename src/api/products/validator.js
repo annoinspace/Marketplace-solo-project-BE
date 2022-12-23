@@ -34,9 +34,8 @@ const productSchema = {
   },
   price: {
     in: ["body"],
-    isNumeric: {
-      errorMessage: "please include the price"
-    }
+    errorMessage: "price must be between 1 and 100,000",
+    isLength: { options: { min: 1, max: 1000000 } }
   }
 }
 
@@ -48,13 +47,9 @@ export const triggerProductBadRequest = (req, res, next) => {
 
   if (!errors.isEmpty()) {
     next(
-      createHttpError(
-        400,
-        "Error during product validation, please check you have entered data correctly",
-        {
-          errorsList: errors.array()
-        }
-      )
+      createHttpError(400, "Error during product validation, please check you have entered data correctly", {
+        errorsList: errors.array()
+      })
     )
   } else {
     next()
