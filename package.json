@@ -1,0 +1,33 @@
+{
+  "name": "marketplace-solo-project-be",
+  "version": "1.0.0",
+  "description": "solo project assignment to make marketplace be",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -e js ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/annoinspace/Marketplace-solo-project-BE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/annoinspace/Marketplace-solo-project-BE/issues"
+  },
+  "homepage": "https://github.com/annoinspace/Marketplace-solo-project-BE#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-list-endpoints": "^6.0.0",
+    "express-validator": "^6.14.2",
+    "fs-extra": "^11.1.0",
+    "http-errors": "^2.0.0",
+    "uniqid": "^5.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
