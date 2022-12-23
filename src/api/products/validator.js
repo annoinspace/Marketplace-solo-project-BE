@@ -1,6 +1,6 @@
 // structure of product
 import { checkSchema, validationResult } from "express-validator"
-import createHttpError from "http-errors"
+
 // {
 //     "_id": "5d318e1a8541744830bef139", //SERVER GENERATED
 //     "name": "3310",  //REQUIRED
@@ -46,11 +46,7 @@ export const triggerProductBadRequest = (req, res, next) => {
   console.log(errors.array())
 
   if (!errors.isEmpty()) {
-    next(
-      createHttpError(400, "Error during product validation, please check you have entered data correctly", {
-        errorsList: errors.array()
-      })
-    )
+    next(BadRequest("Errors during product validation", { errorsList: errors.array() }))
   } else {
     next()
   }

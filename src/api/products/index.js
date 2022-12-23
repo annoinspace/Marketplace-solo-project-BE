@@ -5,7 +5,7 @@ import uniqid from "uniqid"
 import { triggerProductBadRequest, checkProductSchema } from "./validator.js"
 import { getProducts, writeProducts } from "../../lib/fs-tools.js"
 
-const { NotFound } = httpErrors
+const { NotFound, BadRequest } = httpErrors
 
 const productsRouter = express.Router()
 
@@ -22,7 +22,7 @@ productsRouter.post("/", triggerProductBadRequest, checkProductSchema, async (re
     res.status(201).send({ _id: newProduct._id })
   } catch (error) {
     console.log("----error adding new product-----")
-    next(error)
+    next(BadRequest(`Unfortunately this product was not created!`))
   }
 })
 
@@ -54,15 +54,16 @@ productsRouter.get("/:productId", async (req, res, next) => {
 productsRouter.delete("/:productId", async (req, res, next) => {
   try {
     const productsArray = await getProducts()
-    const remainingProducts = productsArray.filter((product) => product._id === req.params.productId)
-    if (remainingProducts.length !== productsArray.length) {
+
+    const remainingProducts = productsArray.filter((product) => product._id !== req.params.productId)
+
+    if (productsArray.length !== remainingProducts.length) {
       await writeProducts(remainingProducts)
       res.status(204).send()
     } else {
-      next(NotFound(`Unfortunately the product with id:${req.params.productId} was not deleted!`))
+      next(BadRequest(`Product with id ${req.params.productId} not deleted!`))
     }
   } catch (error) {
-    console.log("----error deleting products-----")
     next(error)
   }
 })
