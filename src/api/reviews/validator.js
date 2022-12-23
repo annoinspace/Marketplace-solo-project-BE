@@ -30,13 +30,9 @@ export const triggerCommentBadRequest = (req, res, next) => {
 
   if (!errors.isEmpty()) {
     next(
-      createHttpError(
-        400,
-        "Error during product validation, please check you have entered data correctly",
-        {
-          errorsList: errors.array()
-        }
-      )
+      createHttpError(400, "Error during product validation, please check you have entered data correctly", {
+        errorsList: errors.array()
+      })
     )
   } else {
     next()
