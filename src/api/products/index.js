@@ -72,11 +72,18 @@ productsRouter.put("/:productId", async (req, res, next) => {
   try {
     const productsArray = await getProducts()
     const index = productsArray.findIndex((product) => product._id === req.params.productId)
-    const oldProductInfo = productsArray[index]
-    const updatedProductInfo = { ...oldProductInfo, ...req.body, updatedAt: new Date() }
-    productsArray[index] = updatedProductInfo
-    await writeProducts(productsArray)
-    res.send(updatedProductInfo)
+
+    if (index !== -1) {
+      const oldProductInfo = productsArray[index]
+      const updatedProductInfo = { ...oldProductInfo, ...req.body, updatedAt: new Date() }
+      productsArray[index] = updatedProductInfo
+
+      await writeProducts(productsArray)
+
+      res.send(updatedProductInfo)
+    } else {
+      next(NotFound(`Product with id ${req.params.productId} not found!`))
+    }
   } catch (error) {
     console.log("----error updating product-----")
     next(error)

@@ -1,18 +1,26 @@
 import express from "express"
 import listEndpoints from "express-list-endpoints"
+import cors from "cors"
+import { join } from "path"
 import productsRouter from "./api/products/index.js"
 import { badRequestHandler, unauthorizedHandler, notFoundHandler, genericErrorHandler } from "./errorHandlers.js"
 import reviewsRouter from "./api/reviews/index.js"
+import filesRouter from "./api/files/index.js"
 
 const server = express()
 const port = 3001
 
-server.use(express.json())
+const publicFolderPath = join(process.cwd(), "./public")
+console.log("Public folder path in server-----------", publicFolderPath)
 
+server.use(express.static(publicFolderPath))
+server.use(express.json())
+server.use(cors())
 // ---------------------ENDPOINTS-----------------------
 
 server.use("/products", productsRouter)
 server.use("/products", reviewsRouter)
+server.use("/products", filesRouter)
 
 // ---------------------ERROR HANDLERS-----------------------
 server.use(badRequestHandler) // 400
