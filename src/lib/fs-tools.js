@@ -16,9 +16,6 @@ export const getProducts = () => readJSON(productsJSONPath)
 export const getReviews = () => readJSON(reviewsJSONPath)
 export const writeProducts = (productsArray) => writeJSON(productsJSONPath, productsArray)
 export const writeReviews = (reviewsArray) => writeJSON(reviewsJSONPath, reviewsArray)
-// export const saveProductImage = (fileName, contentAsABuffer) => {
-//   writeFile(join(publicFolderPath, fileName), contentAsABuffer)
-// }
 
-export const saveCoverPhoto = (fileName, contentAsABuffer) =>
+export const saveCoverProductImage = (fileName, contentAsABuffer) =>
   writeFile(join(publicFolderPath, fileName), contentAsABuffer)
