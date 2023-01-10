@@ -10,7 +10,7 @@ filesRouter.post("/:productId/upload", multer().single("imageUrl"), async (req, 
     const originalFileExtension = extname(req.file.originalname)
     const fileName = req.params.productId + originalFileExtension
     await saveCoverProductImage(fileName, req.file.buffer)
-    //   url to use for the mew image
+    //   url to use for the new image
     const url = `http://localhost:3001/img/${fileName}`
 
     const products = await getProducts()
