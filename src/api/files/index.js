@@ -31,8 +31,8 @@ filesRouter.post("/:productId/upload", cloudinaryUploader, async (req, res, next
     //   updating the blog cover
     if (index !== -1) {
       const oldProduct = products[index]
-      const coverUpdate = { imageUrl: url }
-      const updatedProduct = { ...oldProduct, coverUpdate, updatedAt: new Date() }
+      // const coverUpdate = { imageUrl: url }
+      const updatedProduct = { ...oldProduct, imageUrl: url, updatedAt: new Date() }
       products[index] = updatedProduct
       await writeProducts(products)
     }
