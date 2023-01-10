@@ -17,6 +17,7 @@ const cloudinaryUploader = multer({
 
 filesRouter.post("/:productId/upload", cloudinaryUploader, async (req, res, next) => {
   try {
+    // code used before images were stored on cloud
     // const originalFileExtension = extname(req.file.originalname)
     // const fileName = req.params.productId + originalFileExtension
     // await saveCoverProductImage(fileName, req.file.buffer)
